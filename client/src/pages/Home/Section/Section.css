@@ -1,0 +1,13 @@
+.section{
+    margin: 5px;
+}
+
+.section__title{
+    margin-bottom: 10px;
+    font-family: Arial, serif;
+}
+
+.section__cards{
+    display: flex;
+    justify-content: space-around;
+}

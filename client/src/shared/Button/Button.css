@@ -1,0 +1,24 @@
+.button{
+    min-height: 40px;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.button.catalog{
+    align-items: center;
+    background-color: var(--dark-blue);
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.button.catalog:hover{
+    background-color: #0c3e78;
+}

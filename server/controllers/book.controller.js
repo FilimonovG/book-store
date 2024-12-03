@@ -29,9 +29,10 @@ class BookController{
        }
     }
 
-    async delete(req){
+    async delete(req, res){
         const id = req.params.id
         await bookService.delete(id)
+        res.status(204).json()
     }
 }
 

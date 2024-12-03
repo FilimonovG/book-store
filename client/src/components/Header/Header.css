@@ -1,0 +1,40 @@
+header{
+    position: sticky;
+    min-height: 103px;
+    width: 100%;
+    background-color: var(--blue);
+}
+
+.header__row{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 16px 8px;
+    gap: 16px;
+}
+
+.header__catalog{
+    display: flex;
+    gap: 10px;
+}
+
+.header__menu{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.temp-icon{
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.temp-icon:first-child{
+    margin-right: auto;
+}
+
+svg{
+    display: block;
+}
