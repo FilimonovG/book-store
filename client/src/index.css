@@ -4,6 +4,7 @@
   --blue: #2c7edc;
   --dark-blue: #00499c;
   --light-blue: #ecf4fe;
+  --main-width: 1440px
 }
 
 *{
@@ -35,3 +36,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

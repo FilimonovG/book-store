@@ -20,6 +20,9 @@
 .card__rating{
     margin: 5px 0;
     font-size: 16px;
+    height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .card__authors{
@@ -29,7 +32,7 @@
 }
 
 .number_of_ratings__value{
-    float: right;
+    opacity: 0.5;
 }
 
 .card__button-buy{
@@ -45,4 +48,8 @@
 
 .card__button-buy:hover{
     background-color: #00499c;
+}
+
+.rating__star{
+    display: inline;
 }

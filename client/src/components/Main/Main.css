@@ -1,5 +1,5 @@
 main{
-    width: 1440px;
+    width: var(--main-width);
     margin: 0 auto;
     flex: 1 1 auto;
     background-color: white;
