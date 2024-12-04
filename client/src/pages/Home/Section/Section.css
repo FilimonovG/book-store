@@ -1,13 +1,15 @@
 .section{
-    margin: 5px;
 }
 
 .section__title{
-    margin-bottom: 10px;
-    font-family: Arial, serif;
+    margin: 40px 0;
+    font-family: Inter, sans-serif;
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 1px;
 }
 
 .section__cards{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }

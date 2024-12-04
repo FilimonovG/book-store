@@ -3,39 +3,36 @@ import './Card.css'
 function Card({book}){
     return(
         <div className={'card'}>
-            <img className={'card-img'} src={book.imageUrl}/>
-            <div>
-                <p>
-                    {book.price}
-                </p>
-                <p>
-                    {book.discount}
-                </p>
+            <img className={'card__img'} src={book.imageUrl}/>
+            <div className={'card__price'}>
+                <span className={'price__value'}>
+                    {book.price} ₽
+                </span>
             </div>
-            <div>
-                <p>
+            <div className={'card__title'}>
+                <span className={'title__value'}>
                     {book.title}
-                </p>
+                </span>
             </div>
-            <div>
-                <p>
+            <div className={'card__authors'}>
+                <span className={'authors__value'}>
                     {book.authors.map((author, id)=>{
                         if (id){
                             return ', ' + author.name
                         }
                         return author.name
                     })}
-                </p>
+                </span>
             </div>
-            <div className="">
-                <p>
+            <div className={'card__rating'}>
+                <span className={'rating__value'}>
                     {book.rating}
-                </p>
-                <p>
+                </span>
+                <span className={'number_of_ratings__value'}>
                     {book.number_of_ratings}
-                </p>
+                </span>
             </div>
-            <button>
+            <button className={'card__button-buy'}>
                 Купить
             </button>
         </div>

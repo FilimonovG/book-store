@@ -34,6 +34,11 @@ class BookController{
         await bookService.delete(id)
         res.status(204).json()
     }
+
+    async deleteAll(req, res){
+        await bookService.deleteAll()
+        res.status(204).json()
+    }
 }
 
 module.exports = new BookController()
