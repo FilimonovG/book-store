@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "../pages/Home/Home";
 import PersistRoute from "../utils/ProtectedRoute/PersistRoute";
+import Book from "../pages/Book/Book";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
           <Route  element={<PersistRoute/>}>
               {/* public routes */}
               <Route path={'/'} element={<Home/>}/>
-
+              <Route path={'/book/:id'} element={<Book/>}/>
               {/* user routes */}
 
 

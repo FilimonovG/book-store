@@ -1,19 +1,24 @@
 import './Card.css'
+import {Link} from "react-router-dom";
 
 function Card({book}){
     return(
         <div className={'card'}>
-            <img className={'card__img'} src={book.imageUrl}/>
+            <Link className={"card__link"} to={`/book/${book.id}`}>
+                <img className={'card__img'} src={book.imageUrl}/>
+            </Link>
             <div className={'card__price'}>
                 <span className={'price__value'}>
                     {book.price} ₽
                 </span>
             </div>
-            <div className={'card__title'}>
-                <span className={'title__value'}>
-                    {book.title}
-                </span>
-            </div>
+            <Link className={"card__link"} to={`/book/${book.id}`}>
+                <div className={'card__title'}>
+                    <span className={'title__value'}>
+                        {book.title}
+                    </span>
+                </div>
+            </Link>
             <div className={'card__authors'}>
                 <span className={'authors__value'}>
                     {book.authors.map((author, id)=>{

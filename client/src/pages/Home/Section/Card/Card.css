@@ -6,6 +6,7 @@
 
 .card__img{
     margin-bottom: 5px;
+    height: 300px;
 }
 
 .card__price{
@@ -52,4 +53,9 @@
 
 .rating__star{
     display: inline;
+}
+
+.card__link{
+    text-decoration: none;
+    color: black;
 }

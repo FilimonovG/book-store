@@ -3,6 +3,7 @@ header{
     min-height: 103px;
     width: 100%;
     background-color: var(--blue);
+    display: block;
 }
 
 .header__row{
