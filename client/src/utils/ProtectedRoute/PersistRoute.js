@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation, useRefreshMutation } from "../../services/userApi";
-import { logOut, selectCurrentUser, setCredentials } from "../../store/reducers/AuthSlice";
+import { logOut, selectCurrentUser, setCredentials } from "../../store/reducers/authSlice";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Loading from "./Loading";

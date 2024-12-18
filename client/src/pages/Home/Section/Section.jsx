@@ -6,7 +6,7 @@ function Section({title, books}){
         <div className={'section'}>
             <h3 className={'section__title'}>{title}</h3>
             <div className={'section__cards'}>
-                {books?.map(book => (
+                {books?.slice(0, 6).map(book => (
                     <Card book={book}/>
                 ))}
             </div>

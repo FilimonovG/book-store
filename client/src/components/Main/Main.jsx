@@ -1,5 +1,4 @@
 import './Main.css'
-import Slider from "../Slider/Slider";
 
 function Main({children}){
     return(

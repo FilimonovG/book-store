@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { selectCurrentUser } from "../../store/reducers/AuthSlice";
+import { selectCurrentUser } from "../../store/reducers/authSlice";
 
 function ProtectedRoute({allowedRoles}){
     const user = useSelector(selectCurrentUser)

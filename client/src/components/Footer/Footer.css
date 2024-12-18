@@ -4,3 +4,15 @@ footer{
     flex: 0 0 auto;
     background-color: var(--light-blue);
 }
+
+.footer__content{
+    height: 100%;
+    width: var(--main-width);
+    margin: 0 auto;
+    display: flex;
+}
+
+.footer__text{
+    align-self: center;
+    opacity: 0.5;
+}

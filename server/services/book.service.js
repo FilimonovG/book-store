@@ -72,6 +72,18 @@ class BookService{
         })
     }
 
+    async update(id, data){
+        return await sequelize.transaction(async () => {
+            return await Book.findOne({where:{id}})
+                .then(async book=>{
+                    if (!book){
+                        throw ApiError.NotFoundError(`Book with id '${id}' not found`)
+                    }
+                    return await book.save(data)
+                })
+        })
+    }
+
     async delete(id){
         await Book.destroy({where:{id}})
     }

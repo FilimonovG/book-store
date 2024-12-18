@@ -1,10 +1,28 @@
 .search{
+    display: flex;
     height: 40px;
     width: 100%;
     background-color: white;
     padding: 6px 10px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+}
+
+.search__field{
     outline: none;
+    font-size: 16px;
+    flex: 1;
+}
+
+.search__button{
+    border: none;
+    background-color: var(--dark-blue);
+    cursor: pointer;
+    width: 28px;
+    display: flex;
+    justify-content: center;
+}
+
+.search__button svg{
+    align-self: center;
 }

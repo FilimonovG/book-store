@@ -8,7 +8,7 @@ function Home(){
     return(
         <Layout>
             <div className={"home-page"}>
-                <Section title={'Научная фантастика'} books={books} />
+                <Section title={'Лидеры рейтинга'} books={books} />
                 <Section title={'Научная фантастика'} books={books} />
             </div>
         </Layout>

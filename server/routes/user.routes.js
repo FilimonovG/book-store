@@ -10,5 +10,7 @@ router.post('/login', userController.login)
 router.post('/logout', userController.logout)
 router.get('/activate/:link', userController.activate)
 router.post('/refresh', userController.refresh)
+router.put('/:id', auth('USER'), userController.update)
+router.delete('/:id', auth('USER'), userController.delete)
 
 module.exports = router

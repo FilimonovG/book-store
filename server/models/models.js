@@ -15,7 +15,7 @@ const Book = sequelize.define('books', {
     imageUrl:{type: DataTypes.STRING, allowNull: false},
     rating: {type: DataTypes.FLOAT, defaultValue: 0},
     number_of_ratings: {type: DataTypes.INTEGER, defaultValue: 0},
-    description: {type: DataTypes.STRING},
+    description: {type: DataTypes.TEXT},
     discount: {type: DataTypes.INTEGER},
     weight: {type: DataTypes.INTEGER},
     coverType: {type: DataTypes.STRING},
@@ -46,7 +46,7 @@ const Review = sequelize.define('reviews',{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     rating: {type: DataTypes.INTEGER, allowNull: false},
     title: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const Order = sequelize.define('orders',{

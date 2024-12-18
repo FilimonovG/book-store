@@ -16,24 +16,44 @@
 
 .card__title{
     margin-bottom: 5px;
+    transition: 0.2s;
+}
+
+.card__title:hover{
+    color: var(--blue);
 }
 
 .card__rating{
-    margin: 5px 0;
-    font-size: 16px;
-    height: 24px;
     display: flex;
     align-items: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+
 }
+
+.rating__star{
+    align-content: center;
+}
+
+.rating__star > svg{
+    height: 22px;
+}
+
 
 .card__authors{
     margin-bottom: 20px;
     font-size: 16px;
     opacity: 0.5;
+    flex: 1;
 }
 
 .number_of_ratings__value{
+    margin-left: 4px;
     opacity: 0.5;
+}
+
+.authors__value a{
+    color: black;
 }
 
 .card__button-buy{
@@ -49,10 +69,6 @@
 
 .card__button-buy:hover{
     background-color: #00499c;
-}
-
-.rating__star{
-    display: inline;
 }
 
 .card__link{

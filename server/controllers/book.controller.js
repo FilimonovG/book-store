@@ -29,6 +29,16 @@ class BookController{
        }
     }
 
+    async update(req, res, next){
+        try {
+            const id = req.params.id
+            const book = await bookService.update(id, req.body)
+            res.json(book)
+        }catch (e){
+            return next(e)
+        }
+    }
+
     async delete(req, res){
         const id = req.params.id
         await bookService.delete(id)

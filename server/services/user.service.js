@@ -16,17 +16,8 @@ class UserService{
         const hashPassword = await bcrypt.hash(password, 5)
         const activationLink = uuid.v4()
         const user = await User.create({email, password:hashPassword, activationLink})
-        //await  mailService.sendActivationMail(email, `${process.env.API_URL}/api/users/activate/${activationLink}`)
+        await  mailService.sendActivationMail(email, `${process.env.API_URL}/api/users/activate/${activationLink}`)
         return this.getUserData(user);
-    }
-
-    async activate(activationLink){
-        const user = await User.findOne({where:{activationLink}})
-        if (!user){
-            throw ApiError.BadRequest('Некорректная ссылка')
-        }
-        user.isActivated = true
-        await user.save()
     }
 
     async login(email, password){
@@ -39,6 +30,15 @@ class UserService{
             throw ApiError.BadRequest('Неверный логин или пароль')
         }
         return this.getUserData(user);
+    }
+
+    async activate(activationLink){
+        const user = await User.findOne({where:{activationLink}})
+        if (!user){
+            throw ApiError.BadRequest('Некорректная ссылка')
+        }
+        user.isActivated = true
+        await user.save()
     }
 
     async logout(refreshToken) {
@@ -65,6 +65,20 @@ class UserService{
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
         return{...tokens, user: userDto}
     }
+
+    async update(id, {username, password}){
+        const user = await User.findOne({where:{id}})
+        if(!user){
+            throw ApiError.NotFoundError(`User with id '${id}' not found`)
+        }
+        user.save(user)
+    }
+
+    async delete(id){
+        await User.destroy({where:{id}})
+    }
+    
+
 }
 
 module.exports = new UserService()

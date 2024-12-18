@@ -61,6 +61,26 @@ class UserController{
             next(e)
         }
     }
+
+    async update(req, res, next){
+        try {
+            const id = req.params.id
+            const userData = await userService.update(id, req.body)
+            return res.json(userData)
+        }catch (e){
+            next(e)
+        }
+    }
+
+    async delete(req, res, next){
+        try {
+            const id = req.params.id
+            await userService.delete(id)
+            res.status(204).json()
+        }catch (e){
+            next(e)
+        }
+    }
 }
 
 module.exports = new UserController()
