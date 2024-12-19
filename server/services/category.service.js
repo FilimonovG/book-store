@@ -1,4 +1,4 @@
-const {Category, Book, Author} = require('../models/models')
+const {Category, Book, Author, Review} = require('../models/models')
 const ApiError = require("../exceptions/Api.error");
 
 class CategoryService {
@@ -27,16 +27,21 @@ class CategoryService {
                     'rating',
                     'number_of_ratings'
                 ],
-                include:{
-                    model: Author,
-                    through: {
-                        attributes: []
+                include:[
+                    {
+                        model: Author,
+                        through: {
+                            attributes: []
+                        },
+                        attributes:[
+                            'id',
+                            'name'
+                        ]
                     },
-                    attributes:[
-                        'id',
-                        'name'
-                    ]
-                }
+                    {
+                        model: Review
+                    }
+                ]
             }
         })
     }

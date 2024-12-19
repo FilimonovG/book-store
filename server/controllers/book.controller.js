@@ -1,12 +1,16 @@
 const bookService = require('../services/book.service')
 const {validationResult} = require('express-validator')
-const ApiErrors = require("../exceptions/Api.error");
 const ApiError = require("../exceptions/Api.error");
 
 class BookController{
 
     async findAll(req, res){
         const books = await bookService.findAll()
+        res.json(books)
+    }
+
+    async findAllShort(req, res){
+        const books = await bookService.findAllShort()
         res.json(books)
     }
 

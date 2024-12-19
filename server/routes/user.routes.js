@@ -12,5 +12,6 @@ router.get('/activate/:link', userController.activate)
 router.post('/refresh', userController.refresh)
 router.put('/:id', auth('USER'), userController.update)
 router.delete('/:id', auth('USER'), userController.delete)
+router.get('/', userController.findAll)
 
 module.exports = router

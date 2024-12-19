@@ -21,6 +21,31 @@ class BookService{
         })
     }
 
+    async findAllShort(){
+        return await Book.findAll({
+            attributes: {
+                exclude: ["createdAt", "updatedAt"]
+            },
+            include: [
+                {
+                    model: Author,
+                    through: {
+                        attributes: []
+                    },
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                },
+                {
+                    model: Review,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                }
+            ]
+        })
+    }
+
     async findById(id){
         return await Book.findOne({
             where: {id},
@@ -34,9 +59,15 @@ class BookService{
                         attributes: []
                     },
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"]
+                        exclude: ["updatedAt"]
                     },
                 },
+                {
+                    model: Review,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
+                }
             ]
         })
     }

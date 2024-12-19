@@ -8,6 +8,10 @@ const ApiError = require('../exceptions/Api.error')
 
 class UserService{
 
+    async findAll(){
+        return await User.findAll()
+    }
+
     async registration(email, password){
         const candidate = await User.findOne({where:{email}})
         if(candidate){
