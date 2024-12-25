@@ -39,3 +39,39 @@
     width: fit-content;
     margin-bottom: 15px;
 }
+
+.profile__orders__order{
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.order__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order__content{
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.order__img{
+    height: 200px;
+}
+
+.order__books{
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.order__link{
+    margin-right: 20px;
+}
+
+.order__total{
+    font-weight: bold;
+}

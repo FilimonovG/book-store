@@ -23,14 +23,14 @@ const Book = sequelize.define('books', {
 })
 
 const Token = sequelize.define('tokens', {
-    refreshToken: {type: DataTypes.STRING, allowNull: false},
+    refreshToken: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const User = sequelize.define('users', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     email: {type: DataTypes.STRING, unique: true, allowNull: false},
     password: {type: DataTypes.STRING, allowNull: false},
-    username:{type: DataTypes.STRING, allowNull: true},
+    username:{type: DataTypes.STRING, allowNull: false},
     role: {type: DataTypes.STRING, defaultValue: "USER"},
     isActivated: {type: DataTypes.BOOLEAN, defaultValue: false},
     activationLink: {type: DataTypes.STRING},

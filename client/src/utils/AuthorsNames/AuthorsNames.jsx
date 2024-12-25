@@ -5,7 +5,7 @@ function AuthorsNames({book}){
         <>
             {book.authors.map((author, i)=>{
                 return (
-                    <soan key={author.id} to={`/author/${author.id}`}>{i ? author.name : author.name + '\n'}</soan>
+                    <span key={author.id} to={`/author/${author.id}`}>{i ? author.name : author.name + '\n'}</span>
                 )
             })}
         </>

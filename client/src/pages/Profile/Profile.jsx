@@ -82,8 +82,21 @@ function Profile(){
                             <div className={'profile__orders__content'}>
                                 {user?.orders.length > 0 ?
                                     user.orders.map(order=> (
-                                        <div className={'profile__orders__order'}>
-
+                                        <div key={order.id} className={'profile__orders__order'}>
+                                            <div className={'order__header'}>
+                                                <span>Заказ №{order.id}</span>
+                                                <span>Дата: {order.createdAt.slice(0, 10)}</span>
+                                            </div>
+                                            <div className={'order__content'}>
+                                                <div className="order__books">
+                                                    {order.books.map(book=>(
+                                                        <Link className={'order__link'} to={`/book/${book.id}`}>
+                                                            <img className={'order__img'} src={book.imageUrl}/>
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                                <span className={'order__total'}>Итого: {order.total_price}</span>
+                                            </div>
                                         </div>
                                     ))
                                     :

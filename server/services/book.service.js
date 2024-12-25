@@ -10,15 +10,24 @@ class BookService{
             attributes: {
                 exclude: ["createdAt", "updatedAt"]
             },
-            include: {
-                model: Author,
-                through: {
-                    attributes: []
+            include:
+            [
+                {
+                    model: Author,
+                    through: {
+                        attributes: []
+                    },
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 },
-                attributes: {
-                    exclude: ["createdAt", "updatedAt"]
+                {
+                    model:Category,
+                    attributes:{
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 }
-            }
+            ]
         })
     }
 
@@ -86,7 +95,7 @@ class BookService{
         return book
     }
 
-    async create(title, price, image, categoryId, authors){
+    async create(title, price, image, description, categoryId, authors){
         return await sequelize.transaction(async () => {
             return await Category.findOne({where: {id: categoryId}})
                 .then(async category=>{
@@ -98,18 +107,20 @@ class BookService{
                         title: title,
                         price: price,
                         imageUrl: process.env.API_URL + '/books/' + image.name,
+                        description: description,
                         discount: 0,
                         rating: 0,
                         number_of_ratings: 0,
                         categoryId: categoryId,
+                        weight: 200,
+                        coverType: 'Мягкий переплёт',
+                        pagesAmount: 140
                     }).then(async book=>{
-                        for (let authorId of authors) {
-                            const author = await Author.findOne({where:{id:authorId}})
-                            if(!author){
-                                throw ApiError.NotFoundError(`Author with id '${authorId}' not found`)
-                            }
-                            await book.addAuthor(author)
+                        const author = await Author.findOne({where:{id:authors}})
+                        if(!author){
+                            throw ApiError.NotFoundError(`Author with id '${authors}' not found`)
                         }
+                        await book.addAuthor(author)
                         return book
                     })
                 })

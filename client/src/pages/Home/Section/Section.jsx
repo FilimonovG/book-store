@@ -9,7 +9,7 @@ function Section({category, books}){
                 <h3 className={'section__title'}>{category.title}</h3>
             </Link>
             <div className={'section__cards'}>
-            {books?.slice(0, 4).map(book => (
+            {books?.filter(book=>book.category.id === category.id).slice(0, 4).map(book => (
                     <Card key={book.id} book={book}/>
                 ))}
             </div>

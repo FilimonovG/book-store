@@ -27,8 +27,8 @@ class BookController{
                return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
            }
            const {image} = req.files
-           const {title, price, categoryId, authors} = req.body
-           const book = await bookService.create(title, price, image, categoryId, authors)
+           const {title, price, description, categoryId, authors} = req.body
+           const book = await bookService.create(title, price, image, description, categoryId, authors)
            res.json(book)
        }catch (e){
            return next(e)

@@ -68,3 +68,10 @@ select{
 .modal__input__image{
     font-size: 18px;
 }
+
+.modal__text-area{
+    border: 1px solid #000;
+    border-radius: 2px;
+    padding: 5px 10px;
+    outline: none;
+}

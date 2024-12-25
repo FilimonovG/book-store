@@ -12,6 +12,7 @@ function CreateBook() {
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
     const [image, setImage] = useState(null)
     const [categoryId, setCategory] = useState(1)
@@ -30,10 +31,12 @@ function CreateBook() {
             formData.append("title", title)
             formData.append("price", price)
             formData.append("image", image)
+            formData.append('description', description)
             formData.append("categoryId", categoryId)
             formData.append("authors", authors)
             await createBook(formData)
             setTitle('')
+            setDescription('')
             setImage(null)
             setCategory(1)
             setPrice(0)
@@ -108,6 +111,16 @@ function CreateBook() {
                                 <input className={'modal__input__image'}
                                        type={"file"} required
                                        onChange={(e) => setImage(e.target.files[0])}
+                                />
+                            </div>
+                        </div>
+                        <div className={'modal__row'}>
+                            <div className={'modal__col'}>
+                                <span>Описание:</span>
+                            </div>
+                            <div className={'modal__col'}>
+                                <textarea rows={10} cols={50} className={'modal__text-area'} placeholder={'Введите описание'}
+                                          required onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
                         </div>
