@@ -5,8 +5,10 @@ import {useParams} from "react-router-dom";
 import Loading from "../../utils/ProtectedRoute/Loading";
 import Rating from "../../components/Rating/Rating";
 import AuthorsNames from "../../utils/AuthorsNames/AuthorsNames";
+import BuyButton from "../../shared/Button/BuyButton";
 
 function Book(){
+
     const {id} = useParams()
     const {data: book} = useGetBookByIdQuery(id)
 
@@ -34,9 +36,7 @@ function Book(){
                             </div>
                             <Rating item={book} class_name={"details__rating"}/>
                             <div className={"details__buy"}>
-                                <button className={'details__button'}>
-                                    Купить
-                                </button>
+                                <BuyButton book={book} type={'details__button'}/>
                             </div>
                         </div>
                         <div className={"details__col"}>
@@ -121,11 +121,11 @@ function Book(){
                                     Отзывы
                                 </p>
                             </div>
-                            <div className={"review__button"}>
-                                <button className={"details__button"}>
-                                    Оставить отзыв
-                                </button>
-                            </div>
+                            {/*<div className={"review__button"}>*/}
+                            {/*    <button className={"button details__button"}>*/}
+                            {/*        Оставить отзыв*/}
+                            {/*    </button>*/}
+                            {/*</div>*/}
                         </div>
                         {[...Array(5)].map((_, i) => {
                             return (

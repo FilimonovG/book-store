@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const bcrypt = require('bcrypt')
 const mailService = require('./mail.service')
-const {User} = require('../models/models')
+const {User, Review, Order} = require('../models/models')
 const tokenService = require('./token.service')
 const UserDto = require('../dtos/user.dto')
 const ApiError = require('../exceptions/Api.error')
@@ -10,6 +10,23 @@ class UserService{
 
     async findAll(){
         return await User.findAll()
+    }
+
+    async findById(id){
+        return await User.findOne({
+            where: {id},
+            attributes:{
+                exclude: ['password', 'createdAt', 'updatedAt']
+            },
+            include:[
+                {
+                    model: Review
+                },
+                {
+                    model: Order
+                }
+            ]
+        })
     }
 
     async registration(email, password){

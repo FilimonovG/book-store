@@ -22,6 +22,7 @@ class CategoryService {
                     'id',
                     'title',
                     'price',
+                    'description',
                     'discount',
                     'imageUrl',
                     'rating',
@@ -58,6 +59,7 @@ class CategoryService {
                     'id',
                     'title',
                     'price',
+                    'description',
                     'discount',
                     'imageUrl',
                     'rating',
@@ -90,6 +92,15 @@ class CategoryService {
             title: title,
             description: description,
         })
+    }
+
+    async update(id, title){
+        const category = await Category.findOne({where:{id}})
+        if (!category){
+            throw ApiError.NotFoundError(`Category with id='${id}' not found`);
+        }
+        category.title = title
+        return await category.save()
     }
 
     async delete(id){

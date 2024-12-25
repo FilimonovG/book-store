@@ -7,20 +7,37 @@ export const bookApi = apiSlice.injectEndpoints({
                 url: '/book',
             })
         }),
+        getAllBooksWithDetails: builder.query({
+            query: () =>({
+                url: '/book/admin',
+            })
+        }),
         getBookById: builder.query({
             query: (id)=>({
                 url: `/book/${id}`
             })
         }),
+        createBook: builder.mutation({
+            query: data =>({
+                url: `/book`,
+                method: 'POST',
+                body: data
+            })
+        }),
         updateBook: builder.mutation({
-            query: ({id, data}) =>({
-                url: `/book/${id}`,
+            query: data =>({
+                url: `/book/${data.id}`,
                 method: 'PUT',
                 body: data
             })
+        }),
+        deleteBook: builder.mutation({
+            query: (id) =>({
+                url: `/book/${id}`,
+                method: 'DELETE'
+            })
         })
-        
     })
 })
 
-export const { useGetAllBooksQuery, useGetBookByIdQuery } = bookApi
+export const { useGetAllBooksQuery, useGetAllBooksWithDetailsQuery, useGetBookByIdQuery, useCreateBookMutation, useUpdateBookMutation, useDeleteBookMutation } = bookApi

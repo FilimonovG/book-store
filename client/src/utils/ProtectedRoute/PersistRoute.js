@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Loading from "./Loading";
 
-
-
 const PersistRoute = () => {
 
     const [refresh] = useRefreshMutation()
@@ -17,27 +15,26 @@ const PersistRoute = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-    let isMounted = true;
+        let isMounted = true;
 
-    const verifyRefreshToken = async () => {
-        try {
-            const userData = await refresh().unwrap()
-            dispatch(setCredentials({...userData}))
-        }
-        catch (err) {
-            console.error(err);
-            if (err.status === 401){
-                dispatch(logOut())
-                serverLogOut()
+        const verifyRefreshToken = async () => {
+            try {
+                const userData = await refresh().unwrap()
+                dispatch(setCredentials({...userData}))
+            }
+            catch (err) {
+                if (err.status === 401){
+                    dispatch(logOut())
+                    serverLogOut()
+                }
+            }
+            finally {
+                isMounted && setIsLoading(false);
             }
         }
-        finally {
-            isMounted && setIsLoading(false);
-        }
-    }
-    !user && isAuth ? verifyRefreshToken() : setIsLoading(false)
+        !user && isAuth ? verifyRefreshToken() : setIsLoading(false)
 
-    return () => isMounted = false;
+        return () => isMounted = false;
     }, [dispatch, isAuth, refresh, user, isLoading, serverLogOut])
 
     return (

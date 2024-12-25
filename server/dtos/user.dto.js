@@ -1,9 +1,4 @@
 module.exports = class UserDto{
-    id
-    email
-    username
-    role
-    isActivated
     constructor(model) {
         this.id = model.id
         this.email = model.email

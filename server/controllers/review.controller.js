@@ -33,6 +33,11 @@ class ReviewController{
         await reviewService.delete(id)
         res.status(204).json()
     }
+
+    async deleteAll(req, res){
+        await reviewService.deleteAll()
+        res.status(204).json()
+    }
 }
 
 module.exports = new ReviewController()

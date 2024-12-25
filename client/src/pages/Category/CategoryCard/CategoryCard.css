@@ -1,0 +1,100 @@
+.category-card__wrapper{
+    height: fit-content;
+    padding: 20px 0;
+    border-bottom: 1px solid #2c7edc;
+}
+
+.category-card{
+    display: flex;
+}
+
+.category-card__image{
+    margin-right: 20px;
+}
+
+.image__value{
+    height: 300px;
+}
+
+.category-card__details{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.category-card__title{
+    font-size: var(--hedear-font-size);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.category-card__authors__value{
+    font-size: var(--font-size);
+    margin-bottom: 10px;
+}
+
+.category-card__description{
+    flex: 1 0 auto;
+    display: flex;
+}
+
+.category-card__description__value{
+    white-space: pre-wrap;
+    font-size: 18px;
+    align-self: center;
+}
+
+.category-card__buy{
+    display: flex;
+    justify-content: space-between;
+}
+
+.category-card__price{
+    font-weight: bold;
+    font-size: var(--hedear-font-size);
+    align-self: end;
+}
+
+.category-card__rating{
+    display: flex;
+    align-items: center;
+    font-size: var(--small-font-size);
+}
+
+.category-card__rating__stars{
+    margin-right: 10px;
+}
+
+.category-card__rating__value{
+    margin-right: 10px;
+}
+
+.category-card__number-of-ratings__value{
+    opacity: 0.5;
+}
+
+.category-card__rating__star{
+    align-content: center;
+}
+
+.category-card__rating__star > svg{
+    height: 22px;
+}
+
+@media screen and (max-width: 900px){
+    .genre__header{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .category-card__description__value{
+        display: none;
+    }
+    .category-card__image__value{
+        height: 200px;
+    }
+    .category-card__rating__star svg{
+        height: 16px;
+    }
+}

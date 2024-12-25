@@ -1,0 +1,59 @@
+.admin__header{
+    font-weight: bold;
+    font-size: 32px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin__table__row{
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #2c7edc;
+    padding: 10px;
+}
+
+.admin__table__row.header{
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+.admin__table__col{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.admin__table__col:nth-child(1){
+    flex: 0.2;
+}
+
+.admin__table__col:last-child{
+    flex: 0.5;
+}
+
+.admin__table__col.btn{
+
+    align-self: center;
+    justify-content: flex-end;
+}
+
+.admin__table__col__value{
+    align-self: center;
+}
+
+.admin__btn{
+    margin-left: 10px;
+}
+
+.button.delete{
+    background-color: #cc0000;
+}
+
+.button.delete:hover{
+    background-color: #990000;
+}
+
+.admin-img{
+    height: 100px;
+}

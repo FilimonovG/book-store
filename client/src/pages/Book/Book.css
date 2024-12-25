@@ -77,21 +77,6 @@
     width: 30px;
 }
 
-.details__button{
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-    background-color: #2c7edc;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.2s;
-    width: 100%;
-}
-
-.details__button:hover{
-    background-color: #00499c;
-}
 
 .details__col:first-child{
     margin-right: 50px;

@@ -1,6 +1,7 @@
 const {Book, Author, Category, Book_Author, Review} = require('../models/models')
 const ApiError = require("../exceptions/Api.error");
 const sequelize = require('../config/db')
+const path = require('path');
 
 class BookService{
 
@@ -21,7 +22,7 @@ class BookService{
         })
     }
 
-    async findAllShort(){
+    async findAllWithDetails(){
         return await Book.findAll({
             attributes: {
                 exclude: ["createdAt", "updatedAt"]
@@ -41,13 +42,19 @@ class BookService{
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
+                },
+                {
+                    model: Category,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 }
             ]
         })
     }
 
     async findById(id){
-        return await Book.findOne({
+        const book =  await Book.findOne({
             where: {id},
             attributes: {
                 exclude: ["createdAt", "updatedAt"]
@@ -67,30 +74,36 @@ class BookService{
                     attributes: {
                         exclude: ["createdAt", "updatedAt"]
                     }
+                },
+                {
+                    model: Category,
+                    attributes: {
+                        exclude: ["createdAt", "updatedAt"]
+                    }
                 }
             ]
         })
+        return book
     }
 
-    async create({title, price, imageUrl, description, authors, categoryId}){
+    async create(title, price, image, categoryId, authors){
         return await sequelize.transaction(async () => {
             return await Category.findOne({where: {id: categoryId}})
                 .then(async category=>{
                     if (!category){
                         throw ApiError.NotFoundError(`Category with id '${categoryId}' not found`)
                     }
+                    await image.mv(path.resolve(__dirname, '..', 'static/books', image.name))
                     return await Book.create({
                         title: title,
                         price: price,
-                        imageUrl: imageUrl,
+                        imageUrl: process.env.API_URL + '/books/' + image.name,
                         discount: 0,
-                        description: description,
                         rating: 0,
                         number_of_ratings: 0,
                         categoryId: categoryId,
-
                     }).then(async book=>{
-                        for (const authorId of authors) {
+                        for (let authorId of authors) {
                             const author = await Author.findOne({where:{id:authorId}})
                             if(!author){
                                 throw ApiError.NotFoundError(`Author with id '${authorId}' not found`)
@@ -105,13 +118,35 @@ class BookService{
 
     async update(id, data){
         return await sequelize.transaction(async () => {
-            return await Book.findOne({where:{id}})
-                .then(async book=>{
-                    if (!book){
-                        throw ApiError.NotFoundError(`Book with id '${id}' not found`)
+            const book = await Book.findOne({where:{id}, include:{model:Author}})
+            if (!book){
+                throw ApiError.NotFoundError(`Book with id='${id}' not found`)
+            }
+
+            if (data.image){
+                data.image = process.env.API_URL + '/books/' + data.image.name
+            }
+
+            if (data.categoryId){
+                const category = await Category.findOne({where:{id:data.categoryId}})
+                if (!category){
+                    throw ApiError.NotFoundError(`Category with id='${data.categoryId}' not found`)
+                }
+                await book.setCategory(category)
+            }
+
+            if (data.authors){
+                for (let authorId of data.authors){
+                    const author = await Author.findOne({where:{id:authorId}})
+                    if(!author){
+                        throw ApiError.NotFoundError(`Author with id='${authorId}' not found`)
                     }
-                    return await book.save(data)
-                })
+                    data.authors[data.authors.indexOf(authorId)] = author
+                }
+                await book.setAuthors(data.authors)
+            }
+
+            return await book.update(data)
         })
     }
 
@@ -119,7 +154,7 @@ class BookService{
         await Book.destroy({where:{id}})
     }
 
-    async deleteAll(id){
+    async deleteAll(){
         const books = await Book.findAll()
         for (let book of books){
             await Book.destroy({where: {id: book.id}})

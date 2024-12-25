@@ -2,6 +2,7 @@ import './Card.css'
 import {Link} from "react-router-dom";
 import Rating from "../../../../components/Rating/Rating";
 import AuthorsNames from "../../../../utils/AuthorsNames/AuthorsNames";
+import BuyButton from "../../../../shared/Button/BuyButton";
 
 function Card({book}){
     return(
@@ -27,9 +28,7 @@ function Card({book}){
                 </span>
             </div>
             <Rating item={book} class_name={"card__rating"}/>
-            <button className={'card__button-buy'}>
-                Купить
-            </button>
+            <BuyButton book={book} type={'card__button-buy'}/>
         </div>
     )
 }

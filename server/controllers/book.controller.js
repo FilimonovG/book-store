@@ -9,8 +9,8 @@ class BookController{
         res.json(books)
     }
 
-    async findAllShort(req, res){
-        const books = await bookService.findAllShort()
+    async findAllWithDetails(req, res){
+        const books = await bookService.findAllWithDetails()
         res.json(books)
     }
 
@@ -26,7 +26,9 @@ class BookController{
            if (!errors.isEmpty()) {
                return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
            }
-           const book = await bookService.create(req.body)
+           const {image} = req.files
+           const {title, price, categoryId, authors} = req.body
+           const book = await bookService.create(title, price, image, categoryId, authors)
            res.json(book)
        }catch (e){
            return next(e)
@@ -36,7 +38,8 @@ class BookController{
     async update(req, res, next){
         try {
             const id = req.params.id
-            const book = await bookService.update(id, req.body)
+            const {image} = req.files
+            const book = await bookService.update(id, {...req.body, image})
             res.json(book)
         }catch (e){
             return next(e)

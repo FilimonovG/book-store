@@ -1,10 +1,19 @@
 import './Header.css'
-import Button from "../../shared/Button/Button";
+import profile from '../../icons/profile.png'
 import Search from "../../shared/Search/Search";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {toggleCatalog} from "../../store/reducers/toggleSlice";
+import {selectCart} from "../../store/reducers/cartSlice";
+import {selectCurrentUser} from "../../store/reducers/authSlice";
 
 
 function Header(){
+
+    const dispatch = useDispatch()
+    const cart = useSelector(selectCart)
+    const user = useSelector(selectCurrentUser)
+
 
     return(
         <header className={'header'}>
@@ -19,33 +28,39 @@ function Header(){
                             Книжный магазин
                         </span>
                     </Link>
-                    <Link to={"/cart"}>
+                    <Link className={'cart__icon'} to={"/cart"}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                            <path fill="#ffffff" d="M3 1.999a1 1 0 000 2h2v19a1 1 0 001.053.998l17.523-.922a3 3 0 002.753-2.268L29.97 6.241A1 1 0 0029 5H7V3a1 1 0 00-1-1H3zm4 12v-7h20.72l-1.75 7H7zm0 2h18.47l-1.081 4.323a1 1 0 01-.918.756L7 21.945v-5.946zm2 12a2 2 0 11-4 0 2 2 0 014 0zm10 2a2 2 0 100-4 2 2 0 000 4z"></path>
-                         </svg>
-                    </Link>
-                    <Link to={"/login"}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                            <path
-                                fill="#ffffff"
-                                d="M13.717 3.437a6.188 6.188 0 013.446-.327 6.065 6.065 0 013.065 1.577 5.75 5.75 0 011.655 2.978 5.63 5.63 0 01-.345 3.375 5.85 5.85 0 01-2.22 2.603A6.145 6.145 0 0116 14.61h-.001a6.11 6.11 0 01-4.226-1.688A5.718 5.718 0 0110 8.807v-.002c0-1.157.357-2.285 1.022-3.24a5.962 5.962 0 012.695-2.128zm6.208 4.634a3.75 3.75 0 00-1.082-1.943 4.065 4.065 0 00-2.055-1.053 4.2 4.2 0 00-2.332.22 3.963 3.963 0 00-1.792 1.412A3.673 3.673 0 0012 8.805c.001.996.413 1.96 1.16 2.676.413.398.912.702 1.457.894.438.154.905.235 1.383.236.8 0 1.579-.228 2.238-.651.178-.115.345-.242.5-.38.417-.373.746-.827.963-1.331a3.622 3.622 0 00.224-2.178zm3.384 11.149a14.206 14.206 0 00-14.618 0A7.603 7.603 0 005 25.74V27c0 1 1 2 2 2h18c1 0 2-1 2-2v-1.26a7.603 7.603 0 00-3.691-6.52zM9.72 20.935a12.206 12.206 0 0112.56 0A5.603 5.603 0 0125 25.739v1.262H7v-1.262a5.603 5.603 0 012.72-4.804z">
-                            </path>
+                            <path fill="#ffffff"
+                                  d="M3 1.999a1 1 0 000 2h2v19a1 1 0 001.053.998l17.523-.922a3 3 0 002.753-2.268L29.97 6.241A1 1 0 0029 5H7V3a1 1 0 00-1-1H3zm4 12v-7h20.72l-1.75 7H7zm0 2h18.47l-1.081 4.323a1 1 0 01-.918.756L7 21.945v-5.946zm2 12a2 2 0 11-4 0 2 2 0 014 0zm10 2a2 2 0 100-4 2 2 0 000 4z"></path>
                         </svg>
+                        <span className={`cart__quantity ${cart.length > 0 ? 'active' : ''}`}>{cart.length}</span>
                     </Link>
+                    {user ?
+                        <Link to={'/profile'}>
+                            <img className={'profile-image'} src={profile}/>
+                        </Link>
+                        :
+                        <Link to={"/login"}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <path fill="#ffffff"
+                                      d="M13.717 3.437a6.188 6.188 0 013.446-.327 6.065 6.065 0 013.065 1.577 5.75 5.75 0 011.655 2.978 5.63 5.63 0 01-.345 3.375 5.85 5.85 0 01-2.22 2.603A6.145 6.145 0 0116 14.61h-.001a6.11 6.11 0 01-4.226-1.688A5.718 5.718 0 0110 8.807v-.002c0-1.157.357-2.285 1.022-3.24a5.962 5.962 0 012.695-2.128zm6.208 4.634a3.75 3.75 0 00-1.082-1.943 4.065 4.065 0 00-2.055-1.053 4.2 4.2 0 00-2.332.22 3.963 3.963 0 00-1.792 1.412A3.673 3.673 0 0012 8.805c.001.996.413 1.96 1.16 2.676.413.398.912.702 1.457.894.438.154.905.235 1.383.236.8 0 1.579-.228 2.238-.651.178-.115.345-.242.5-.38.417-.373.746-.827.963-1.331a3.622 3.622 0 00.224-2.178zm3.384 11.149a14.206 14.206 0 00-14.618 0A7.603 7.603 0 005 25.74V27c0 1 1 2 2 2h18c1 0 2-1 2-2v-1.26a7.603 7.603 0 00-3.691-6.52zM9.72 20.935a12.206 12.206 0 0112.56 0A5.603 5.603 0 0125 25.739v1.262H7v-1.262a5.603 5.603 0 012.72-4.804z"></path>
+                            </svg>
+                        </Link>
+                    }
                 </div>
                 <div className="header__catalog">
-                    <Button text={'Каталог'} type={'catalog'}
-                            icon={
-                                <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" className="catalog__button-image">
-                                    <path fill="#ffffff"
-                                          d="M6.667 3.333C5.747 3.333 5 4.08 5 5v10.834c-.92 0-1.667-.746-1.667-1.666V5a3.333 3.333 0 013.334-3.333h7.5c.92 0 1.667.746 1.667 1.666V5h-1.667V3.333h-7.5z"/>
-                                    <path fill="#ffffff"
-                                          d="M3.333 5.832c0-.92.747-1.667 1.667-1.667h10c.92 0 1.667.746 1.667 1.667v10.834c0 .92-.746 1.666-1.667 1.666H5c-.92 0-1.667-.746-1.667-1.666V5.832zm11.667 0H5v10.834h10V5.832z"/>
-                                    <path fill="#ffffff"
-                                          d="M8.335 4.165c.46 0 .833.373.833.833v5.833a.833.833 0 01-1.667 0V4.998c0-.46.374-.833.834-.833z"/>
-                                </svg>
-                            }
-                    />
+                    <button className={'button catalog'} onClick={() => dispatch(toggleCatalog())}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                             className="catalog__button-image">
+                            <path fill="#ffffff"
+                                  d="M6.667 3.333C5.747 3.333 5 4.08 5 5v10.834c-.92 0-1.667-.746-1.667-1.666V5a3.333 3.333 0 013.334-3.333h7.5c.92 0 1.667.746 1.667 1.666V5h-1.667V3.333h-7.5z"/>
+                            <path fill="#ffffff"
+                                  d="M3.333 5.832c0-.92.747-1.667 1.667-1.667h10c.92 0 1.667.746 1.667 1.667v10.834c0 .92-.746 1.666-1.667 1.666H5c-.92 0-1.667-.746-1.667-1.666V5.832zm11.667 0H5v10.834h10V5.832z"/>
+                            <path fill="#ffffff"
+                                  d="M8.335 4.165c.46 0 .833.373.833.833v5.833a.833.833 0 01-1.667 0V4.998c0-.46.374-.833.834-.833z"/>
+                        </svg>
+                        <span>Каталог</span>
+                    </button>
                     <Search/>
                 </div>
             </div>

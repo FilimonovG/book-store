@@ -79,3 +79,7 @@
     display: flex;
 }
 
+.regular-link{
+    text-decoration: underline;
+    color: var(--blue);
+}

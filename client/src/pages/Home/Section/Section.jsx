@@ -1,13 +1,16 @@
 import './Section.css'
 import Card from "./Card/Card";
+import {Link} from "react-router-dom";
 
-function Section({title, books}){
+function Section({category, books}){
     return(
         <div className={'section'}>
-            <h3 className={'section__title'}>{title}</h3>
+            <Link className={'section__link'} to={`category/${category.id}`}>
+                <h3 className={'section__title'}>{category.title}</h3>
+            </Link>
             <div className={'section__cards'}>
-                {books?.slice(0, 6).map(book => (
-                    <Card book={book}/>
+            {books?.slice(0, 4).map(book => (
+                    <Card key={book.id} book={book}/>
                 ))}
             </div>
         </div>

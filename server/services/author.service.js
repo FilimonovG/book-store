@@ -19,6 +19,14 @@ class AuthorService{
         })
     }
 
+    async findAllShort(){
+        return await Author.findAll({
+            attributes: {
+                exclude: ["createdAt", "updatedAt"]
+            },
+        })
+    }
+
     async findById(id){
         return await Author.findOne({
             where: {id},

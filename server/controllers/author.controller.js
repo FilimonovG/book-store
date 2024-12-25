@@ -2,8 +2,13 @@ const authorService = require('../services/author.service')
 
 class AuthorController {
 
-    async findAll(res){
+    async findAll(req, res){
         const authors = await authorService.findAll()
+        res.json(authors)
+    }
+
+    async findAllShort(req, res){
+        const authors = await authorService.findAllShort()
         res.json(authors)
     }
 
@@ -19,7 +24,7 @@ class AuthorController {
         res.json(author)
     }
 
-    async delete(req){
+    async delete(req, res){
         const id = req.params.id
         await authorService.delete(id)
     }

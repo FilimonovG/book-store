@@ -1,0 +1,137 @@
+import '../Modal.css'
+import {useDispatch, useSelector} from "react-redux";
+import {selectUpdateModal, toggleUpdateModal} from "../../../store/reducers/toggleSlice";
+import {useState} from "react";
+import {useGetAllCategoriesQuery} from "../../../services/categoryApi";
+import {useUpdateBookMutation} from "../../../services/bookApi";
+import {useGetAllAuthorsQuery} from "../../../services/authorApi";
+
+function UpdateBook({book}) {
+
+    const isActive = useSelector(selectUpdateModal)
+    const dispatch = useDispatch();
+
+    const id = book?.id;
+    const [title, setTitle] = useState('')
+    const [price, setPrice] = useState(0);
+    const [image, setImage] = useState(null)
+    const [categoryId, setCategory] = useState(1)
+    const [authors, setAuthors] = useState([1])
+
+    const {data: categories} = useGetAllCategoriesQuery()
+    const {data: authorsData} = useGetAllAuthorsQuery()
+
+    const [updateBook] = useUpdateBookMutation()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const formData = new FormData()
+            formData.append('id', id)
+            formData.append("title", title)
+            formData.append("price", price)
+            formData.append("image", image)
+            formData.append("categoryId", categoryId)
+            formData.append("authors", authors)
+            await updateBook(formData)
+            setTitle('')
+            setImage(null)
+            setCategory(1)
+            setPrice(0)
+            setAuthors([1])
+            dispatch(toggleUpdateModal())
+            window.location.reload()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    return (
+        <>
+            {book ?
+                <>
+                    <div className={`modal ${isActive ? 'active' : ''}`}>
+                        <div className={'modal__header'}>
+                            <span>Обновить книгу</span>
+                        </div>
+                        <form className={'modal__content'} onSubmit={handleSubmit}>
+                            <div className={'modal__body'}>
+                                <div className={'modal__row'}>
+                                    <div className={'modal__col'}>
+                                        <span>Название:</span>
+                                    </div>
+                                    <div className={'modal__col'}>
+                                        <input className={'modal__input'} placeholder={book?.title}
+                                               type={"text"} required
+                                               onChange={(e) => setTitle(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={'modal__row'}>
+                                    <div className={'modal__col'}>
+                                        <span>Цена:</span>
+                                    </div>
+                                    <div className={'modal__col'}>
+                                        <input className={'modal__input'} placeholder={book?.price}
+                                               type={"number"} required
+                                               onChange={(e) => setPrice(Number(e.target.value))}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={'modal__row'}>
+                                    <div className={'modal__col'}>
+                                        <span>Категория:</span>
+                                    </div>
+                                    <div className={'modal__col'}>
+                                        <select className={'modal__input'}>
+                                            {categories?.toSorted((a, b) => a.id - b.id).map((category) => (
+                                                <option onClick={() => setCategory(category.id)}
+                                                        key={category.id}>{category.title}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className={'modal__row'}>
+                                    <div className={'modal__col'}>
+                                        <span>Автор:</span>
+                                    </div>
+                                    <div className={'modal__col'}>
+                                        <select className={'modal__input'}>
+                                            {authorsData?.toSorted((a, b) => a.id - b.id).map((author) => (
+                                                <option onClick={() => setAuthors([author.id])}
+                                                        key={author.id}>{author.name}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className={'modal__row'}>
+                                    <div className={'modal__col'}>
+                                        <span>Изображение:</span>
+                                    </div>
+                                    <div className={'modal__col'}>
+                                        <input className={'modal__input__image'}
+                                               type={"file"} required
+                                               onChange={(e) => setImage(e.target.files[0])}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'modal__buttons'}>
+                                <button type={"reset"} className={'button'}
+                                        onClick={() => dispatch(toggleUpdateModal())}>Отмена
+                                </button>
+                                <button type={"submit"} className={'button confirm'}>Обновить</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div className={`shading shading-modal ${isActive ? 'active' : ''}`}
+                         onClick={() => dispatch(toggleUpdateModal())}></div>
+                </>
+                :
+                <></>
+            }
+        </>
+    )
+}
+
+export default UpdateBook

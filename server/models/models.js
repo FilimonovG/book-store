@@ -39,7 +39,7 @@ const User = sequelize.define('users', {
 const Category = sequelize.define('categories',{
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     title: {type: DataTypes.STRING, allowNull: false, unique: true},
-    description: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.STRING, allowNull: true},
 })
 
 const Review = sequelize.define('reviews',{

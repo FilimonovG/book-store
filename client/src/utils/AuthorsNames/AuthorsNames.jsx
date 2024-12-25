@@ -1,20 +1,11 @@
 import './AuthorsNames.css'
-import {Link} from "react-router-dom";
 
 function AuthorsNames({book}){
     return(
         <>
-        {book.authors.map((author, i)=>{
-            console.log(author);
-                if (i){
-                    return (
-                        <span>,
-                            <Link className={"author_link"} to={`/author/${author.id}`}> {author.name}</Link>
-                        </span>
-                    )
-                }
+            {book.authors.map((author, i)=>{
                 return (
-                    <Link className={"author_link"} to={`/author/${author.id}`}>{author.name}</Link>
+                    <soan key={author.id} to={`/author/${author.id}`}>{i ? author.name : author.name + '\n'}</soan>
                 )
             })}
         </>

@@ -29,7 +29,7 @@ class ReviewService{
     }
 
     async findById(id){
-        return await Review.findOne({
+        const review = await Review.findOne({
             where: {id},
             attributes: {
                 exclude: ["updatedAt"]
@@ -46,11 +46,12 @@ class ReviewService{
                     model: User,
                     attributes: [
                         'id',
-                        'name'
+                        'email'
                     ]
                 }
             ]
         })
+        return review
     }
 
     async create({title, description, rating, userId, bookId}){
@@ -59,18 +60,25 @@ class ReviewService{
             if (!user){
                 throw ApiError.NotFoundError(`User with id '${userId}' not found`)
             }
-            const book = await Book.findOne({where:{id:bookId}})
+            const book = await Book.findOne({where:{id:bookId}, include:{model:Review}})
             if (!book){
                 throw ApiError.NotFoundError(`Book with id '${bookId}' not found`)
             }
-            const review = await Review.create({
+            const newReview = await Review.create({
                 title: title,
                 description: description,
                 rating: rating,
             })
-            await user.addReview(review)
-            await book.addReview(review)
-            return review
+            await user.addReview(newReview)
+            await book.addReview(newReview)
+            book.number_of_ratings += 1
+            let total_rating = newReview.rating
+            book.reviews.map(review=>{
+                 total_rating += review.rating
+             })
+            book.rating = total_rating / book.number_of_ratings
+            await book.save()
+            return newReview
         })
     }
 
@@ -80,6 +88,20 @@ class ReviewService{
 
     async delete(id){
         await Review.destroy({where:{id}})
+    }
+
+    async deleteAll(){
+        const reviews = await Review.findAll()
+        for (let review of reviews){
+            await Review.destroy({where:{id:review.id}})
+        }
+        const books = await Book.findAll()
+        for (let book of books){
+            book.number_of_ratings = 0
+            book.rating = 0
+            await book.save()
+        }
+
     }
 
 }

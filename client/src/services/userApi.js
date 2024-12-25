@@ -28,6 +28,11 @@ export const authApi = apiSlice.injectEndpoints({
                 method: 'POST',
             })
         }),
+        getUserById: builder.query({
+            query: (id)=>({
+                url: `/user/${id}`,
+            })
+        }),
         getAllUsers: builder.query({
             query:()=>({
                 url: '/user'
@@ -49,4 +54,4 @@ export const authApi = apiSlice.injectEndpoints({
     })
 })
 
-export const { useLoginMutation, useRegistrationMutation, useLogoutMutation, useRefreshMutation } = authApi
+export const { useLoginMutation, useRegistrationMutation, useLogoutMutation, useRefreshMutation, useGetUserByIdQuery } = authApi

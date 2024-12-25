@@ -6,6 +6,7 @@
     padding: 6px 10px;
     border: none;
     border-radius: 5px;
+    position: relative;
 }
 
 .search__field{
@@ -25,4 +26,33 @@
 
 .search__button svg{
     align-self: center;
+}
+
+.search__results{
+    position: absolute;
+    z-index: 20;
+    top: 110%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.search__results.active{
+    padding: 10px;
+}
+
+.search__item{
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.search__item:hover{
+    color: black;
+    background-color: var(--light-blue);
 }

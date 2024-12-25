@@ -9,6 +9,12 @@ class UserController{
         res.json(users)
     }
 
+    async findById(req, res){
+        const id = req.params.id
+        const user = await userService.findById(id)
+        res.json(user)
+    }
+
     async registration(req, res, next){
         try {
             const errors =  validationResult(req)

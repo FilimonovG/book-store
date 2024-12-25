@@ -2,25 +2,24 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    transition: 0.2s;
-    left:0;
+    transition: 0.4s;
+    left: -100%;
     top: 0;
-    transform: translateX(-100%);
     height: 100%;
     width: 400px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
-    z-index: 999;
+    z-index: 10;
 }
 
 .catalog-header{
-    padding: 8px;
+    padding: 16px;
 }
 
-.catalog{
+.catalog__item{
     display: flex;
     width: 100%;
-    padding: 8px;
+    padding: 16px;
     margin: 2px;
     text-align: start;
     cursor: pointer;
@@ -31,45 +30,33 @@
     position: relative;
 }
 
-.catalog:hover{
-    border-color: #ff5c57;
-    color: #ff5c57;
+.catalog__item:hover{
+    background-color: var(--light-blue);
 }
-
-.catalog__icon{
-    margin-right: 10px;
-}
-
-.catalog:hover .catalog__icon{
-    filter: invert(38%) sepia(66%) saturate(952%) hue-rotate(322deg) brightness(118%) contrast(106%);
-}
-
-.catalog::before,
-.catalog::after {
-    position: absolute;
-    content: "";
-    width: 15px;
-    height: 2px;
-    right: 5%;
-    background-color: transparent;
-}
-
-.catalog:hover::after,
-.catalog:hover::before{
-    background-color: #ff5c57;
-}
-
-.catalog::after{
-    transform: rotate(45deg);
-    top: 35%;
-}
-
-.catalog::before{
-    transform: rotate(-45deg);
-    bottom: 35%;
-}
-
 
 #catalog._active{
-    transform: translateX(0) !important;
+    left: 0;
+}
+
+.shading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: -9;
+}
+
+.shading.active{
+    display: block;
+    animation: shade 0.2s linear forwards;
+    z-index: 9;
+}
+
+@keyframes shade{
+    from {opacity: 0}
+    to {opacity: 0.5}
 }
