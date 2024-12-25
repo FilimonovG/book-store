@@ -127,23 +127,23 @@ function Book(){
                             {/*    </button>*/}
                             {/*</div>*/}
                         </div>
-                        {[...Array(5)].map((_, i) => {
+                        {book.reviews?.map(review => {
                             return (
                                 <div className={"review"}>
                                     <div className={"review__author"}>
                                         <span className={"author__text"}>
-                                            Надежда
+                                            {review.user.username}
                                         </span>
                                         <span className={"author__text"}>
-                                            24.11.2024
+                                            {review.createdAt.slice(0, 10)}
                                         </span>
                                     </div>
                                     <div className={"review__rating"}>
                                         <span className={'review-rating__value'}>
-                                            {5}
+                                            {review.rating}
                                         </span>
                                         {[...Array(5)].map((_, i) => {
-                                            if (5 > i) {
+                                            if (review.rating > i) {
                                                 return (
                                                     <span className={'review__star'}>
                                                 <svg viewBox="0 0 24 24" fill="#fbb500"
@@ -168,20 +168,12 @@ function Book(){
                                     </div>
                                     <div className={"review__header"}>
                                         <p>
-                                            Хорошая антиутопия
+                                            {review.title}
                                         </p>
                                     </div>
                                     <div className={"review__content"}>
                                         <p className={""}>
-                                            Мне понравилось читать "451° по Фаренгейту" Рэя Брэдбери. Действие книги
-                                            происходит в обществе будущего, где чтение и интеллектуализм запрещены, и
-                                            повествует о человеке, который начинает сомневаться в своем обществе и в той
-                                            роли, которую он в нем играет. Темы книги, такие как цензура и конформизм,
-                                            заставляют задуматься об окружающем мире. Книга держит в напряжении, а
-                                            персонажи сложные и легко узнаваемые. Хотя книга затрагивает некоторые
-                                            сложные темы, я нашла ее действительно интересной. Я бы определенно
-                                            рекомендовала эту книгу другим людям, которые любят антиутопическую
-                                            фантастику и истории, которые заставляют задуматься.
+                                            {review.description}
                                         </p>
                                     </div>
                                 </div>

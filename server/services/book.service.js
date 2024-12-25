@@ -1,4 +1,4 @@
-const {Book, Author, Category, Book_Author, Review} = require('../models/models')
+const {Book, Author, Category, Book_Author, Review, User} = require('../models/models')
 const ApiError = require("../exceptions/Api.error");
 const sequelize = require('../config/db')
 const path = require('path');
@@ -81,7 +81,11 @@ class BookService{
                 {
                     model: Review,
                     attributes: {
-                        exclude: ["createdAt", "updatedAt"]
+                        exclude: ["updatedAt"]
+                    },
+                    include:{
+                        model: User,
+                        attributes:['username']
                     }
                 },
                 {
